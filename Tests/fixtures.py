@@ -24,3 +24,5 @@ layout = '<config>' + ''.join(f'<plate><metadata key="plater_name" value="Batch 
 items = ''.join(f'<item objectid="1" transform="1 0 0 0 1 0 0 0 1 {x} {y} 0"/>' for x,y in [(50,50),(290,50),(50,-130)])
 package('plates',model(mesh,items),{'Metadata/project_settings.config':settings,'Metadata/model_settings.config':layout})
 package('bad-bed',model(mesh,'<item objectid="1"/>'),{'Metadata/project_settings.config':'{"printable_area":["nanx0","1x0","1x1"]}'})
+
+package('large',model(mesh.replace('</triangles>', '<triangle v1="0" v2="1" v3="3"/>' * 120000 + '</triangles>'),'<item objectid="1"/>'))

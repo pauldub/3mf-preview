@@ -52,3 +52,11 @@ if CommandLine.arguments.count > 2 {
     precondition(real.rootNode.childNodes.contains { $0.name == "plate-1" })
     print("PASS real project plate")
 }
+
+// Bound parsing cost for a large mesh; catches per-triangle array copies.
+let loadBudget: TimeInterval = 1
+let loadStart = Date()
+_ = try ModelLoader(url: root.appendingPathComponent("large.3mf")).load()
+let loadTime = Date().timeIntervalSince(loadStart)
+precondition(loadTime < loadBudget, "Large mesh took \(loadTime) seconds")
+print("PASS large mesh: \(loadTime) seconds")

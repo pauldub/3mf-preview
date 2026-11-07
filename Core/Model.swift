@@ -43,11 +43,13 @@ private final class Model: NSObject, XMLParserDelegate {
                       x.isFinite, y.isFinite, z.isFinite else { throw ModelError.invalid }
                 objects[id]?.vertices.append(SCNVector3(x, y, z))
             case "triangle":
-                guard let id = current, let mesh = objects[id],
-                      mesh.indices.count / 3 < Self.triangleLimit else { throw ModelError.limit }
+                // Keep only counts: retaining a mesh value copies its array on append.
+                guard let id = current, let vertexCount = objects[id]?.vertices.count,
+                      let indexCount = objects[id]?.indices.count,
+                      indexCount / 3 < Self.triangleLimit else { throw ModelError.limit }
                 for key in ["v1", "v2", "v3"] {
                     guard let index = Int32(a[key] ?? ""), index >= 0,
-                          index < mesh.vertices.count else { throw ModelError.invalid }
+                          index < vertexCount else { throw ModelError.invalid }
                     objects[id]?.indices.append(index)
                 }
             case "component", "item":
