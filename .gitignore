@@ -1,0 +1,8 @@
+build/
+build.log
+*.app/
+*.xcodeproj/xcuserdata/
+Tests/fixtures/
+Tests/preview.png
+Tests/plates.png
+.DS_Store

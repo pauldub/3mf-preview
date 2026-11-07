@@ -1,0 +1,36 @@
+name: ThreeMFPreview
+options:
+  deploymentTarget:
+    macOS: "14.0"
+settings:
+  SWIFT_VERSION: "5.0"
+  CODE_SIGN_IDENTITY: "-"
+  CODE_SIGN_STYLE: Manual
+  SWIFT_OBJC_BRIDGING_HEADER: Core/Bridge.h
+  OTHER_LDFLAGS: ["-larchive"]
+targets:
+  ThreeMFPreview:
+    type: application
+    platform: macOS
+    sources: [App, Core]
+    settings:
+      INFOPLIST_FILE: App/Info.plist
+      PRODUCT_BUNDLE_IDENTIFIER: com.local.ThreeMFPreview
+      CODE_SIGN_ENTITLEMENTS: App/App.entitlements
+    dependencies:
+      - target: Preview
+        embed: true
+  Preview:
+    type: app-extension
+    platform: macOS
+    sources: [Preview, Core]
+    settings:
+      INFOPLIST_FILE: Preview/Info.plist
+      PRODUCT_BUNDLE_IDENTIFIER: com.local.ThreeMFPreview.Preview
+      CODE_SIGN_ENTITLEMENTS: Preview/Preview.entitlements
+      APPLICATION_EXTENSION_API_ONLY: YES
+schemes:
+  ThreeMFPreview:
+    build:
+      targets:
+        ThreeMFPreview: all
