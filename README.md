@@ -3,6 +3,8 @@
 macOS 14+ Quick Look extension with interactive SceneKit rendering.
 Select a `.3mf` in Finder and press Space. Drag to orbit; scroll to zoom.
 
+![3MF Quick Look preview with a numbered build plate](docs/preview.png)
+
 Verified in Finder on macOS 26.5.1 (Apple Silicon).
 
 Supports meshes, build transforms, component instances, and production
